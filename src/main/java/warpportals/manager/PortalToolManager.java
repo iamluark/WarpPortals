@@ -45,30 +45,30 @@ public class PortalToolManager {
         return mPlayerPortalToolMap.get(playerUUID);
     }
 
-    public void playerItemRightClick(PlayerInteractEvent e) {
-        Player player = e.getPlayer();
-        PortalCreate portalCreate = mPlayerPortalCreateMap.get(player.getUniqueId());
-        if (portalCreate != null && portalCreate.toolType == player.getItemInHand().getType()) {
-            iPM.iPortalCDManager.possibleCreatePortal(e.getClickedBlock(), player, portalCreate);
-        } else {
-            PortalTool tool = mPlayerPortalToolMap.get(player.getUniqueId());
-            if (tool != null && tool.toolType == player.getItemInHand().getType()) {
-                if (tool.action == PortalTool.Action.DELETE) {
-                    iPM.iPortalCDManager.possibleDeletePortal(e.getClickedBlock(), player);
-                } else if (tool.action == PortalTool.Action.IDENTIFY) {
-                    identifyPortal(e);
-                }
-            }
-        }
-    }
+//    public void playerItemRightClick(PlayerInteractEvent e) {
+//        Player player = e.getPlayer();
+//        PortalCreate portalCreate = mPlayerPortalCreateMap.get(player.getUniqueId());
+//        if (portalCreate != null && portalCreate.toolType == player.getItemInHand().getType()) {
+//            iPM.iPortalCDManager.possibleCreatePortal(e.getClickedBlock(), player, portalCreate);
+//        } else {
+//            PortalTool tool = mPlayerPortalToolMap.get(player.getUniqueId());
+//            if (tool != null && tool.toolType == player.getItemInHand().getType()) {
+//                if (tool.action == PortalTool.Action.DELETE) {
+//                    iPM.iPortalCDManager.possibleDeletePortal(e.getClickedBlock(), player);
+//                } else if (tool.action == PortalTool.Action.IDENTIFY) {
+//                    identifyPortal(e);
+//                }
+//            }
+//        }
+//    }
 
-    private void identifyPortal(PlayerInteractEvent e) {
-        Player player = e.getPlayer();
-        String portalName = iPM.getPortalName(new Coords(e.getClickedBlock()));
-        if (portalName != null) {
-            player.sendMessage(portalName);
-        } else {
-            player.sendMessage("That is not a WarpPortal.");
-        }
-    }
+//    private void identifyPortal(PlayerInteractEvent e) {
+//        Player player = e.getPlayer();
+//        String portalName = iPM.getPortalName(new Coords(e.getClickedBlock()));
+//        if (portalName != null) {
+//            player.sendMessage(portalName);
+//        } else {
+//            player.sendMessage("That is not a WarpPortal.");
+//        }
+//    }
 }

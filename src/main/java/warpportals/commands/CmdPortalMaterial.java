@@ -3,6 +3,8 @@ package warpportals.commands;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockID;
 import cn.nukkit.command.CommandSender;
+import cn.nukkit.level.Location;
+import cn.nukkit.utils.TextFormat;
 import warpportals.nukkit.CommandHandler;
 import warpportals.objects.PortalInfo;
 
@@ -37,7 +39,7 @@ public class CmdPortalMaterial extends CommandHandlerObject {
                      * Get the block type specified as the 3rd argument for the
                      * portal's material type
                      */
-                    BlockID blockType = BlockID.equals(args[1]);
+                    Block blockType = BlockID.equals(args[1]);
                     // Test to see if that is a valid material type
                     if (blockType != null) {
                         /*
@@ -50,19 +52,19 @@ public class CmdPortalMaterial extends CommandHandlerObject {
                              * the player that they don't use it
                              */
                             if (blockType.isSolid()) {
-                                sender.sendMessage(main.mCC + "" + blockType
+                                sender.sendMessage("" + blockType
                                         + " is solid. You can create a WarpPortal using it but that may not be the best idea.");
                             }
-                            main.mPortalManager.changeMaterial(blockType, portal.blockCoordArray, new Location(portal.tpCoords.world, 0, 0, 0));
-                            sender.sendMessage(ChatColor.RED + portal.name + ChatColor.WHITE + " portal material changed to " + ChatColor.AQUA + blockType);
+                            main.iPortalManager.changeMaterial(blockType, portal.blockCoordArray, new Location(portal.tpCoords.level, 0, 0, 0));
+                            sender.sendMessage(TextFormat.RED + portal.name + TextFormat.WHITE + " portal material changed to " + TextFormat.AQUA + blockType);
                         } else
-                            sender.sendMessage(main.mCC + "WarpPortals can only be created out of blocks, you can't use other items.");
+                            sender.sendMessage("WarpPortals can only be created out of blocks, you can't use other items.");
                     } else
-                        sender.sendMessage(main.mCC + "You have to provide a valid BLOCK_NAME to create the WarpPortal out of.");
+                        sender.sendMessage("You have to provide a valid BLOCK_NAME to create the WarpPortal out of.");
                 } else
-                    sender.sendMessage(main.mCC + "\"" + args[0].trim() + "\" is not a WarpPortal!");
+                    sender.sendMessage("\"" + args[0].trim() + "\" is not a WarpPortal!");
             } catch (Exception e) {
-                sender.sendMessage(main.mCC + "Error modifying WarpPortal type");
+                sender.sendMessage("Error modifying WarpPortal type");
             }
         } else
             return false;

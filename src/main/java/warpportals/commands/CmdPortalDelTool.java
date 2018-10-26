@@ -1,7 +1,9 @@
 package warpportals.commands;
 
 import cn.nukkit.Player;
+import cn.nukkit.item.Item;
 import warpportals.nukkit.CommandHandler;
+import warpportals.objects.PortalTool;
 
 public class CmdPortalDelTool extends CommandHandlerObject {
 
@@ -27,11 +29,11 @@ public class CmdPortalDelTool extends CommandHandlerObject {
     @Override
     boolean command(Player player, String[] args, CommandHandler main) {
         try {
-            ItemStack curItem = player.getItemInHand();
-            if (!curItem.getType().isBlock()) {
-                PortalTool tool = new PortalTool(curItem.getType(), PortalTool.Action.DELETE);
-                main.mPortalManager.addTool(player.getUniqueId(), tool);
-                player.sendMessage("Portal delete tool equipped to \"" + curItem.getType() + "\"");
+            Item curItem = player.getInventory().getItemInHand();
+            if (!curItem.getNamedTag().equals("block")) {
+                PortalTool tool = new PortalTool(curItem.getName(), PortalTool.Action.DELETE);
+                main.iPortalManager.addTool(player.getUniqueId(), tool);
+                player.sendMessage("Portal delete tool equipped to \"" + curItem.getName() + "\"");
             } else
                 player.sendMessage("You can't use a block for that! Try using something like the fishing rod.");
         } catch (Exception e) {

@@ -1,11 +1,16 @@
 package warpportals.commands;
 
 import cn.nukkit.Player;
+import cn.nukkit.block.Block;
+import cn.nukkit.block.BlockID;
+import cn.nukkit.item.Item;
+import cn.nukkit.utils.TextFormat;
 import warpportals.helpers.Regex;
 import warpportals.nukkit.CommandHandler;
 import warpportals.objects.Coords;
 import warpportals.objects.CoordsPY;
 import warpportals.objects.NullWorldException;
+import warpportals.objects.PortalCreate;
 
 public class CmdPortalCreate extends CommandHandlerObject {
 
@@ -48,7 +53,7 @@ public class CmdPortalCreate extends CommandHandlerObject {
                                  * Get the block type specified as the 3rd
                                  * argument for the portal's material type
                                  */
-                                Material blockType = Material.matchMaterial(args[2]);
+                                Block blockType = Block.equals(args[2]);
                                 // Test to see if that is a valid material
                                 // type
                                 if (blockType != null) {
@@ -56,34 +61,34 @@ public class CmdPortalCreate extends CommandHandlerObject {
                                      * Test to see if it is a valid block type
                                      * (not a fishing rod for example)
                                      */
-                                    if (blockType.isBlock()) {
+                                    if (blockType.isNormalBlock()) {
                                         /*
                                          * Test to see if the block is solid,
                                          * recommend to the player that they
                                          * don't use it
                                          */
-                                        if (blockType.isSolid()) {
-                                            sender.sendMessage(main.mCC + "" + blockType
+                                        if (blockType.isNormalBlock()) {
+                                            sender.sendMessage("" + blockType
                                                     + " is solid. You can create a WarpPortal using it but that may not be the best idea.");
                                         }
                                         // Get current item in the player's
                                         // hand
-                                        ItemStack curItem = sender.getItemInHand();
+                                        Item curItem = sender.getInventory().getItemInHand();
                                         /*
                                          * Test if curItem is a tool or other
                                          * non-block item
                                          */
-                                        if (!curItem.getType().isBlock()) {
+                                        if (!curItem.getNamedTag().equals("block")) {
                                             PortalCreate portalCreate = new PortalCreate();
-                                            portalCreate.toolType = curItem.getType();
+                                            portalCreate.toolType = curItem.getNamedTag();
                                             portalCreate.portalName = args[0];
                                             portalCreate.tpCoords = tpCoords;
                                             portalCreate.blockType = blockType;
-                                            main.mPortalManager.addCreating(sender.getUniqueId(), portalCreate);
-                                            sender.sendMessage(ChatColor.AQUA + "Right-click on a Gold Block wall\n - Tool: \"" + curItem.getType().name()
-                                                    + "\"\n " + ChatColor.WHITE + "-" + ChatColor.AQUA + " WarpPortal Name: " + ChatColor.RED
-                                                    + portalCreate.portalName + ChatColor.WHITE + "\n - " + ChatColor.AQUA + "WarpPortal Dest: "
-                                                    + ChatColor.YELLOW + args[1]);
+                                            main.iPortalManager.addCreating(sender.getUniqueId(), portalCreate);
+                                            sender.sendMessage(TextFormat.AQUA + "Right-click on a Gold Block wall\n - Tool: \"" + curItem.getName()
+                                                    + "\"\n " + TextFormat.WHITE + "-" + TextFormat.AQUA + " WarpPortal Name: " + TextFormat.RED
+                                                    + portalCreate.portalName + TextFormat.WHITE + "\n - " + TextFormat.AQUA + "WarpPortal Dest: "
+                                                    + TextFormat.YELLOW + args[1]);
                                         } else
                                             sender.sendMessage("You can't use a block for that! Try using something like the fishing rod.");
                                     } else

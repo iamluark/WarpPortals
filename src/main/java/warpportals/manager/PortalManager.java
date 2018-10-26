@@ -1,5 +1,6 @@
 package warpportals.manager;
 
+import cn.nukkit.block.Block;
 import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.level.Location;
 import cn.nukkit.utils.Config;
@@ -16,7 +17,7 @@ public class PortalManager {
 
     PortalPlugin iPortalPlugin;
     Logger iLogger;
-    // Yaml  Config
+    Config iConfig;
 
     public PortalDestManager iPortalDestManager;
     public PersistanceManager iPersistanceManager;
@@ -31,8 +32,8 @@ public class PortalManager {
 
         iPersistanceManager = new PersistanceManager(iLogger, dataFile, iPortalPlugin);
         iPortalDataManager = new PortalDataManager(this, iLogger);
-        iPortalToolManager = new PortalToolManager(this, iPortalConfig);
-        iPortalCDManager = new PortalCDManager(iPortalDataManager, iPortalToolManager, iPortalConfig);
+        iPortalToolManager = new PortalToolManager(this, iConfig);
+        iPortalCDManager = new PortalCDManager(iPortalDataManager, iPortalToolManager, iConfig);
         iPortalDestManager = new PortalDestManager(this, iLogger);
         iPortalInteractManager = new PortalInteractManager(this);
 
@@ -44,19 +45,19 @@ public class PortalManager {
     }
 
     public void loadData() {
-        iPersistanceManager.loadDataFile(iPortalDataManager, iPortalCDManager, iPortalDestManager.mPortalDestMap);
+        iPersistanceManager.loadDataFile(iPortalDataManager, iPortalCDManager, iPortalDestManager.iPortalDestMap);
     }
 
     public boolean saveDataFile() {
-        return iPersistanceManager.saveDataFile(iPortalDataManager.getPortalMap(), iPortalDestManager.mPortalDestMap);
+        return iPersistanceManager.saveDataFile(iPortalDataManager.getPortalMap(), iPortalDestManager.iPortalDestMap);
     }
 
     public boolean saveDataFile(File mPortalDataFile) {
-        return iPersistanceManager.saveDataFile(iPortalDataManager.getPortalMap(), iPortalDestManager.mPortalDestMap, mPortalDataFile);
+        return iPersistanceManager.saveDataFile(iPortalDataManager.getPortalMap(), iPortalDestManager.iPortalDestMap, mPortalDataFile);
     }
 
     public boolean backupDataFile() {
-        return iPersistanceManager.backupDataFile(iPortalDataManager.getPortalMap(), iPortalDestManager.mPortalDestMap, null);
+        return iPersistanceManager.backupDataFile(iPortalDataManager.getPortalMap(), iPortalDestManager.iPortalDestMap, null);
     }
 
     public void playerItemRightClick(PlayerInteractEvent e) {
@@ -86,8 +87,8 @@ public class PortalManager {
         iPortalToolManager.addCreating(playerUUID, portalCreate);
     }
 
-    public boolean changeMaterial(Material material, List<Coords> blockCoordArray, Location location) {
-        return iPortalCDManager.changeMaterial(material, blockCoordArray, location);
+    public boolean changeMaterial(Block block, List<Coords> blockCoordArray, Location location) {
+        return iPortalCDManager.changeMaterial(block, blockCoordArray, location);
     }
 
     public void deletePortal(String portalName) {
