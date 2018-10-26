@@ -4,6 +4,8 @@ import cn.nukkit.command.CommandSender;
 import warpportals.nukkit.CommandHandler;
 import warpportals.objects.CoordsPY;
 
+import java.util.HashMap;
+
 public class CmdLoad extends CommandHandlerObject {
 
     private static final String[] ALIASES = { "wp-load", "wpl", "pload" };
@@ -28,7 +30,7 @@ public class CmdLoad extends CommandHandlerObject {
     @Override
     boolean command(CommandSender sender, String[] args, CommandHandler main) {
         main.iPortalManager.iPortalDataManager.clearPortalMap();
-        main.iPortalManager.iPortalDestManager.mPortalDestMap = new HashMap<String, CoordsPY>();
+        main.iPortalManager.iPortalDestManager.iPortalDestMap = new HashMap<String, CoordsPY>();
         main.iPortalManager.loadData();
         sender.sendMessage("Portal data loaded from portals.yml.");
         return true;
