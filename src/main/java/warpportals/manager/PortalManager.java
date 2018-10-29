@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 public class PortalManager {
 
     PortalPlugin iPortalPlugin;
-    Logger iLogger;
     Config iPortalConfig;
 
     public PortalDestManager iPortalDestManager;
@@ -30,11 +29,11 @@ public class PortalManager {
         iPortalPlugin = plugin;
         iPortalConfig = portalConfig;
 
-        iPersistanceManager = new PersistanceManager(iLogger, dataFile, iPortalPlugin);
-        iPortalDataManager = new PortalDataManager(this, iLogger);
+        iPersistanceManager = new PersistanceManager(dataFile, iPortalPlugin);
+        iPortalDataManager = new PortalDataManager(this);
         iPortalToolManager = new PortalToolManager(this, portalConfig);
         iPortalCDManager = new PortalCDManager(iPortalDataManager, iPortalToolManager, portalConfig);
-        iPortalDestManager = new PortalDestManager(this, iLogger);
+        iPortalDestManager = new PortalDestManager(this);
         iPortalInteractManager = new PortalInteractManager(this);
 
         loadData();

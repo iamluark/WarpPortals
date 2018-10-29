@@ -9,16 +9,13 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 public class PortalDataManager {
-
-    Logger iLogger;
     PortalManager iPM;
 
     private HashMap<String, PortalInfo> mPortalMap = new HashMap<String, PortalInfo>();
     private HashMap<Coords, String> mCoordsToPortalsMap = new HashMap<Coords, String>();
 
-    public PortalDataManager(PortalManager pm, Logger logger) {
+    public PortalDataManager(PortalManager pm) {
         iPM = pm;
-        iLogger = logger;
     }
 
     public HashMap<String, PortalInfo> getPortalMap() {

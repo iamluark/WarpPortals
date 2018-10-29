@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
+import java.util.logging.Logger;
 
 public class PortalPlugin extends PluginBase {
 
@@ -36,9 +37,9 @@ public class PortalPlugin extends PluginBase {
         getServer().getPluginManager().registerEvents(new NukkitEventListener(this, iPortalManager, iPortalConfig), this);
 
         // Register example WarpPortals Event API Listener
-        String tpMessage = iPortalConfig.getString("portal.teleport.messageColor", Defaults.TP_MESSAGE);
-        TextFormat tpChatColor = TextFormat.getByChar(iPortalConfig.getString("portals.teleport.messageColor", Defaults.TP_MSG_COLOR));
-        getServer().getPluginManager().registerEvents(new WarpPortalsEventListener(tpMessage, tpChatColor), this);
+//        String tpMessage = iPortalConfig.getString("portal.teleport.messageColor", Defaults.TP_MESSAGE);
+//        TextFormat tpChatColor = TextFormat.getByChar(iPortalConfig.getString("portals.teleport.messageColor", Defaults.TP_MSG_COLOR));
+//        getServer().getPluginManager().registerEvents(new WarpPortalsEventListener(tpMessage, tpChatColor), this);
     }
 
     private void initiateConfigFiles() {

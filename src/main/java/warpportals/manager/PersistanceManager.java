@@ -19,13 +19,10 @@ import java.util.*;
 import java.util.logging.Logger;
 
 public class PersistanceManager {
-
-    Logger iLogger;
     File iDataFile;
     Plugin iPlugin;
 
-    PersistanceManager(Logger logger, File file, Plugin plugin) {
-        iLogger = logger;
+    PersistanceManager(File file, Plugin plugin) {
         iDataFile = file;
         iPlugin = plugin;
     }
@@ -56,8 +53,8 @@ public class PersistanceManager {
                             // Each destination
                             destMap.put(destEntry.getKey(), new CoordsPY((String) destEntry.getValue()));
                         } catch (NullWorldException e) {
-                            iLogger.severe("The destination \"" + destEntry.getKey() + "\" has been deleted because the world \"" + e.getWorldName()
-                                    + "\" does not exist anymore.");
+//                            iLogger.severe("The destination \"" + destEntry.getKey() + "\" has been deleted because the world \"" + e.getWorldName()
+//                                    + "\" does not exist anymore.");
                             /*
                              * Destination is "deleted" because it isn't added
                              * to the destination map; effectively deleting it.
@@ -82,8 +79,8 @@ public class PersistanceManager {
 
                                 portalIM.addPortalNoSave(portal.name, portal);
                             } catch (NullWorldException e) {
-                                iLogger.severe("The destination for portal \"" + portal.name + "\" is in a non-existant world \"" + e.getWorldName()
-                                        + "\". The portal has been deactivated.");
+//                                iLogger.severe("The destination for portal \"" + portal.name + "\" is in a non-existant world \"" + e.getWorldName()
+//                                        + "\". The portal has been deactivated.");
                                 /*
                                  * Delete portal using
                                  * PortalCreateDestroyManager. Portal blocks are
@@ -95,8 +92,8 @@ public class PersistanceManager {
                                 needToBackup = true;
                             }
                         } catch (NullWorldException e) {
-                            iLogger.severe("The portal \"" + portal.name + "\" has been deleted because the world \"" + e.getWorldName()
-                                    + "\" does not exist anymore.");
+//                            iLogger.severe("The portal \"" + portal.name + "\" has been deleted because the world \"" + e.getWorldName()
+//                                    + "\" does not exist anymore.");
                             /*
                              * Portal is "deleted" because it isn't added to the
                              * portal map; effectively deleting it.
@@ -106,8 +103,8 @@ public class PersistanceManager {
                     }
                 }
             }
-            iLogger.info(String.valueOf(portalIM.getPortalCount()) + " Portals loaded!");
-            iLogger.info(String.valueOf(destMap.size()) + " Destinations loaded!");
+//            iLogger.info(String.valueOf(portalIM.getPortalCount()) + " Portals loaded!");
+//            iLogger.info(String.valueOf(destMap.size()) + " Destinations loaded!");
 
             if (needToBackup) {
                 try {
@@ -123,16 +120,16 @@ public class PersistanceManager {
 
                     saveStringToFile(sb.toString(), backupFile);
                 } catch (Exception e) {
-                    iLogger.severe("Can't backup WarpPortals data! " + e.getMessage());
+//                    iLogger.severe("Can't backup WarpPortals data! " + e.getMessage());
                 }
             }
 
         } catch (Exception e) {
             try {
                 loadDataFileOld(portalIM, destMap, dataFile);
-                iLogger.warning("WarpPortal data loaded using the old data-structure. The next save will migrate it to the latest portals.yml version.");
+//                iLogger.warning("WarpPortal data loaded using the old data-structure. The next save will migrate it to the latest portals.yml version.");
             } catch (Exception e2) {
-                iLogger.severe("Can't load data from WarpPortal's data file!");
+//                iLogger.severe("Can't load data from WarpPortal's data file!");
             }
         }
     }
@@ -163,7 +160,7 @@ public class PersistanceManager {
                                             else
                                                 portalInfo.name = attrT.replace(":", "").trim();
                                         } catch (Exception e) {
-                                            iLogger.info("Error in Portal's data file with String \"" + attrT + "\".");
+//                                            iLogger.info("Error in Portal's data file with String \"" + attrT + "\".");
                                         }
                                     }
                                     portalIM.addPortalNoSave(portalInfo.name, portalInfo);
@@ -247,7 +244,7 @@ public class PersistanceManager {
 
             return saveStringToFile(sb.toString(), dataFile);
         } catch (Exception e) {
-            iLogger.severe("Error saving WarpPortal data! " + e.getMessage());
+//            iLogger.severe("Error saving WarpPortal data! " + e.getMessage());
             return false;
         }
     }
@@ -256,10 +253,10 @@ public class PersistanceManager {
         boolean rtn = true;
         if (dataFile.canWrite()) {
             boolean writeSuccess = Utils.writeToFile(data, dataFile);
-            if (!writeSuccess)
-                iLogger.severe("Error saving WarpPortal data!");
+//            if (!writeSuccess)
+//                iLogger.severe("Error saving WarpPortal data!");
         } else {
-            iLogger.severe("Can't save WarpPortals data! WarpPortals does not have write access to the save location \"" + dataFile.getAbsolutePath() + "\".");
+//            iLogger.severe("Can't save WarpPortals data! WarpPortals does not have write access to the save location \"" + dataFile.getAbsolutePath() + "\".");
             rtn = false;
         }
         return rtn;
@@ -275,7 +272,7 @@ public class PersistanceManager {
             backupFile.createNewFile();
             return saveDataFile(portalMap, destMap, backupFile);
         } catch (IOException e) {
-            iLogger.severe("Can't backup WarpPortals data! " + e.getMessage());
+//            iLogger.severe("Can't backup WarpPortals data! " + e.getMessage());
             return false;
         }
     }

@@ -9,15 +9,12 @@ import java.util.logging.Logger;
 
 public class PortalDestManager {
 
-    Logger iLogger;
-
     private PortalManager iPM;
 
     public HashMap<String, CoordsPY> iPortalDestMap = new HashMap<String, CoordsPY>();
 
-    public PortalDestManager(PortalManager pm, Logger logger) {
+    public PortalDestManager(PortalManager pm) {
         iPM = pm;
-        iLogger = logger;
     }
 
     public void addDestination(String destname, CoordsPY coords) {
