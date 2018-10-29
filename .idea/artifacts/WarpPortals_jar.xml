@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="WarpPortals:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/WarpPortals_jar</output-path>
+    <root id="archive" name="WarpPortals.jar">
+      <element id="module-output" name="WarpPortals" />
+    </root>
+  </artifact>
+</component>

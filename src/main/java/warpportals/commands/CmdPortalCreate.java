@@ -3,6 +3,7 @@ package warpportals.commands;
 import cn.nukkit.Player;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockID;
+import cn.nukkit.block.BlockOreGold;
 import cn.nukkit.item.Item;
 import cn.nukkit.utils.TextFormat;
 import warpportals.helpers.Regex;
@@ -11,6 +12,9 @@ import warpportals.objects.Coords;
 import warpportals.objects.CoordsPY;
 import warpportals.objects.NullWorldException;
 import warpportals.objects.PortalCreate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CmdPortalCreate extends CommandHandlerObject {
 
@@ -53,48 +57,48 @@ public class CmdPortalCreate extends CommandHandlerObject {
                                  * Get the block type specified as the 3rd
                                  * argument for the portal's material type
                                  */
-                                //Block blockType = Block.equals(args[2]);
+                                Block blockType = Block.get(BlockID.GOLD_BLOCK);
                                 // Test to see if that is a valid material
                                 // type
-//                                if (blockType != null) {
-//                                    /*
-//                                     * Test to see if it is a valid block type
-//                                     * (not a fishing rod for example)
-//                                     */
-//                                    if (blockType.isSolid()) {
-//                                        /*
-//                                         * Test to see if the block is solid,
-//                                         * recommend to the player that they
-//                                         * don't use it
-//                                         */
-//                                        if (blockType.isSolid()) {
-//                                            sender.sendMessage(main.iCC + "" + blockType
-//                                                    + " is solid. You can create a WarpPortal using it but that may not be the best idea.");
-//                                        }
-//                                        // Get current item in the player's
-//                                        // hand
-//                                        Item curItem = sender.getInventory().getItemInHand();
-//                                        /*
-//                                         * Test if curItem is a tool or other
-//                                         * non-block item
-//                                         */
-//                                        if (!curItem.canBePlaced()) {
-//                                            PortalCreate portalCreate = new PortalCreate();
-//                                            portalCreate.toolType = Item.get(curItem.getId());
-//                                            portalCreate.portalName = args[0];
-//                                            portalCreate.tpCoords = tpCoords;
-//                                            portalCreate.blockType = blockType;
-//                                            main.iPortalManager.addCreating(sender.getUniqueId(), portalCreate);
-//                                            sender.sendMessage(TextFormat.AQUA + "Right-click on a Gold Block wall\n - Tool: \"" + curItem.getName()
-//                                                    + "\"\n " + TextFormat.WHITE + "-" + TextFormat.AQUA + " WarpPortal Name: " + TextFormat.RED
-//                                                    + portalCreate.portalName + TextFormat.WHITE + "\n - " + TextFormat.AQUA + "WarpPortal Dest: "
-//                                                    + TextFormat.YELLOW + args[1]);
-//                                        } else
-//                                            sender.sendMessage(main.iCC + "You can't use a block for that! Try using something like the fishing rod.");
-//                                    } else
-//                                        sender.sendMessage(main.iCC + "WarpPortals can only be created out of blocks, you can't use other items.");
-//                                } else
-//                                    sender.sendMessage(main.iCC + "You have to provide a valid BLOCK_NAME to create the WarpPortal out of.");
+                                if (blockType != null) {
+                                    /*
+                                     * Test to see if it is a valid block type
+                                     * (not a fishing rod for example)
+                                     */
+                                    if (blockType.isSolid()) {
+                                        /*
+                                         * Test to see if the block is solid,
+                                         * recommend to the player that they
+                                         * don't use it
+                                         */
+                                        if (blockType.isSolid()) {
+                                            sender.sendMessage(main.iCC + "" + blockType
+                                                    + " is solid. You can create a WarpPortal using it but that may not be the best idea.");
+                                        }
+                                        // Get current item in the player's
+                                        // hand
+                                        Item curItem = sender.getInventory().getItemInHand();
+                                        /*
+                                         * Test if curItem is a tool or other
+                                         * non-block item
+                                         */
+                                        if (!curItem.canBePlaced()) {
+                                            PortalCreate portalCreate = new PortalCreate();
+                                            portalCreate.toolType = Item.get(curItem.getId());
+                                            portalCreate.portalName = args[0];
+                                            portalCreate.tpCoords = tpCoords;
+                                            portalCreate.blockType = blockType;
+                                            main.iPortalManager.addCreating(sender.getUniqueId(), portalCreate);
+                                            sender.sendMessage(TextFormat.AQUA + "Right-click on a Gold Block wall\n - Tool: \"" + curItem.getName()
+                                                    + "\"\n " + TextFormat.WHITE + "-" + TextFormat.AQUA + " WarpPortal Name: " + TextFormat.RED
+                                                    + portalCreate.portalName + TextFormat.WHITE + "\n - " + TextFormat.AQUA + "WarpPortal Dest: "
+                                                    + TextFormat.YELLOW + args[1]);
+                                        } else
+                                            sender.sendMessage(main.iCC + "You can't use a block for that! Try using something like the fishing rod.");
+                                    } else
+                                        sender.sendMessage(main.iCC + "WarpPortals can only be created out of blocks, you can't use other items.");
+                                } else
+                                    sender.sendMessage(main.iCC + "You have to provide a valid BLOCK_NAME to create the WarpPortal out of.");
                             } else
                                 sender.sendMessage(main.iCC
                                         + "The 2nd param is the WarpPortal Destination. It must be in the format (x,y,z) or the name of a WarpPortal Destination set with /wp-destination-create [name]");
