@@ -2,36 +2,43 @@ package warpportals.nukkit;
 
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
-import cn.nukkit.event.Listener;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
+import cn.nukkit.utils.TextFormat;
+import warpportals.api.example.WarpPortalsEventListener;
+import warpportals.helpers.Defaults;
 import warpportals.helpers.Utils;
 import warpportals.manager.PortalManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.InvalidPropertiesFormatException;
 
-public class PortalPlugin extends PluginBase implements Listener {
+public class PortalPlugin extends PluginBase {
 
     CommandHandler iCommandHandler;
     public PortalManager iPortalManager;
 
     public File iPortalDataFile;
     File iPortalConfigFile;
-
-    private Config config;
-    private Config portals;
+    public Config iPortalConfig;
 
     @Override
     public void onEnable() {
-        this.getServer().getPluginManager().registerEvents(this, this);
-//        config = new File(getDataFolder(), "config.yml");
-//        portals = new File(getDataFolder(), "portals.yml");
-        this.config = new Config(new File(getDataFolder(), "config.yml"), Config.YAML);
-        this.portals = new Config(new File(getDataFolder(), "Portals.yml"), Config.YAML);
+        iPortalConfigFile = new File(getDataFolder(), "config.yml");
+        iPortalDataFile = new File(getDataFolder(), "portals.yml");
+        iPortalConfig = new Config();
+        initiateConfigFiles();
+        loadConfigs();
+        iPortalManager = new PortalManager(iPortalConfig, iPortalDataFile, this);
+        iCommandHandler = new CommandHandler(this, iPortalManager, iPortalConfig);
+        getServer().getPluginManager().registerEvents(new NukkitEventListener(this, iPortalManager, iPortalConfig), this);
 
-        this.saveDefaultConfig();
+        // Register example WarpPortals Event API Listener
+        String tpMessage = iPortalConfig.getString("portal.teleport.messageColor", Defaults.TP_MESSAGE);
+        TextFormat tpChatColor = TextFormat.getByChar(iPortalConfig.getString("portals.teleport.messageColor", Defaults.TP_MSG_COLOR));
+        getServer().getPluginManager().registerEvents(new WarpPortalsEventListener(tpMessage, tpChatColor), this);
     }
 
     private void initiateConfigFiles() {
@@ -58,16 +65,7 @@ public class PortalPlugin extends PluginBase implements Listener {
     }
 
     private void loadConfigs() {
-//        try {
-//
-//        } catch (InvalidConfigurationException e) {
-//            getLogger().error("The WarpPortal config file has invalid markup.");
-//        } catch (FileNotFoundException e) {
-//            getLogger().error("No config file found for WarpPortals!");
-//        } catch (IOException e) {
-//            getLogger().error("Can't load Portal's config file!");
-//            e.printStackTrace();
-//        }
+        saveDefaultConfig();
     }
 
     private void saveConfigs() {

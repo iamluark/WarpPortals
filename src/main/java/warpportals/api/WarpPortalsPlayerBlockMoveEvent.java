@@ -2,10 +2,20 @@ package warpportals.api;
 
 import cn.nukkit.Player;
 import cn.nukkit.event.Cancellable;
+import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.player.PlayerEvent;
 import cn.nukkit.event.HandlerList;
 import cn.nukkit.level.Location;
 
+/**
+ * An event that fires every time a player moves from one block to another. This
+ * is a light-weight version of the PlayerMoveEvent that fires every coordinate
+ * change and when players look around.
+ *
+ * @see PlayerEvent, @see PlayerMoveEvent
+ *
+ * @author http://pastebin.com/SbzHPZBa
+ */
 public class WarpPortalsPlayerBlockMoveEvent extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
@@ -16,7 +26,6 @@ public class WarpPortalsPlayerBlockMoveEvent extends PlayerEvent implements Canc
     private boolean cancel;
 
     public WarpPortalsPlayerBlockMoveEvent(Player who, Location from, Location to) {
-        super(who);
 
         this.from = from;
         this.to = to;
@@ -50,7 +59,7 @@ public class WarpPortalsPlayerBlockMoveEvent extends PlayerEvent implements Canc
         this.cancel = cancel;
     }
 
-    @Override
+    @EventHandler
     public HandlerList getHandlers() {
         return handlers;
     }

@@ -17,7 +17,7 @@ public class PortalManager {
 
     PortalPlugin iPortalPlugin;
     Logger iLogger;
-    Config iConfig;
+    Config iPortalConfig;
 
     public PortalDestManager iPortalDestManager;
     public PersistanceManager iPersistanceManager;
@@ -26,14 +26,14 @@ public class PortalManager {
     public PortalInteractManager iPortalInteractManager;
     public PortalToolManager iPortalToolManager;
 
-    public PortalManager(Logger logger, Config config, File dataFile, PortalPlugin plugin) {
+    public PortalManager(Config portalConfig, File dataFile, PortalPlugin plugin) {
         iPortalPlugin = plugin;
-        iLogger = logger;
+        iPortalConfig = portalConfig;
 
         iPersistanceManager = new PersistanceManager(iLogger, dataFile, iPortalPlugin);
         iPortalDataManager = new PortalDataManager(this, iLogger);
-        iPortalToolManager = new PortalToolManager(this, iConfig);
-        iPortalCDManager = new PortalCDManager(iPortalDataManager, iPortalToolManager, iConfig);
+        iPortalToolManager = new PortalToolManager(this, portalConfig);
+        iPortalCDManager = new PortalCDManager(iPortalDataManager, iPortalToolManager, portalConfig);
         iPortalDestManager = new PortalDestManager(this, iLogger);
         iPortalInteractManager = new PortalInteractManager(this);
 

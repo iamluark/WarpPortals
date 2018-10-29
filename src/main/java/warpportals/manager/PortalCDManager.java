@@ -45,8 +45,8 @@ public class PortalCDManager {
 
     public void deletePortal(String name) {
         try {
-            Location loc = new Location(iPDM.getPortalInfo(name).tpCoords.level, 0, 0, 0);
-            changeMaterial(BlockID.GOLD_BLOCK, iPDM.getPortalInfo(name).blockCoordArray, loc);
+            Location loc = new Location(0, 0, 0, iPDM.getPortalInfo(name).tpCoords.level);
+            changeMaterial(Block.get(BlockID.GOLD_BLOCK), iPDM.getPortalInfo(name).blockCoordArray, loc);
         } catch (Exception e) {
             // Error changing portal to gold block
         }
@@ -161,7 +161,7 @@ public class PortalCDManager {
                 location.setComponents(crd.x, crd.y, crd.z);
 //                location.setY(crd.y);
 //                location.setZ(crd.z);
-                location.floor();
+                location.getLevelBlock();
             }
             return true;
         }

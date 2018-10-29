@@ -1,5 +1,6 @@
 package warpportals.manager;
 
+import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockID;
 import cn.nukkit.level.Location;
 import cn.nukkit.plugin.Plugin;
@@ -88,8 +89,8 @@ public class PersistanceManager {
                                  * PortalCreateDestroyManager. Portal blocks are
                                  * set to default gold state.
                                  */
-                                Location loc = new Location(portal.blockCoordArray.get(0).level, 0, 0, 0);
-                                portalCDM.changeMaterial(BlockID.GOLD_BLOCK, portal.blockCoordArray, loc);
+                                Location loc = new Location(0, 0, 0, portal.blockCoordArray.get(0).level);
+                                portalCDM.changeMaterial(Block.get(BlockID.GOLD_BLOCK), portal.blockCoordArray, loc);
                                 /* Trigger a backup of the pre-existing data. */
                                 needToBackup = true;
                             }
@@ -270,7 +271,7 @@ public class PersistanceManager {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_kk-mm-ss");
                 backupName = "portals_" + sdf.format(new Date()) + ".yml.bac";
             }
-            File backupFile = new File(iLogger.getDataFolder(), backupName);
+            File backupFile = new File(iPlugin.getDataFolder(), backupName);
             backupFile.createNewFile();
             return saveDataFile(portalMap, destMap, backupFile);
         } catch (IOException e) {

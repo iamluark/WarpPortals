@@ -3,6 +3,7 @@ package warpportals.api;
 import cn.nukkit.Player;
 import cn.nukkit.event.Cancellable;
 import cn.nukkit.event.Event;
+import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.HandlerList;
 import cn.nukkit.level.Location;
 
@@ -33,7 +34,7 @@ public class WarpPortalsTeleportEvent extends Event implements Cancellable {
 
     /* Bukkit Event API methods */
 
-    @Override
+    @EventHandler
     public HandlerList getHandlers() {
         return handlers;
     }

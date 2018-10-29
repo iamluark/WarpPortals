@@ -129,12 +129,8 @@ public class Utils {
 //        loc.setZ(coords.z);
     }
 
-//    public static void coordsToLoc(CoordsPY coords, Location loc) {
-//        loc.setLevel(coords.level);
-//        loc.setX(coords.x);
-//        loc.setY(coords.y);
-//        loc.setZ(coords.z);
-//        loc.setPitch(coords.pitch);
-//        loc.setYaw(coords.yaw);
-//    }
+    public static void coordsToLoc(CoordsPY coords, Location loc) {
+        loc.setLevel(coords.level);
+        loc.setComponents(coords.x, coords.y, coords.z);
+    }
 }

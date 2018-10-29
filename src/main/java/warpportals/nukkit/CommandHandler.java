@@ -3,7 +3,9 @@ package warpportals.nukkit;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.Config;
+import cn.nukkit.utils.TextFormat;
 import warpportals.commands.*;
+import warpportals.helpers.Defaults;
 import warpportals.manager.PortalManager;
 
 import java.io.File;
@@ -13,12 +15,17 @@ import java.util.Map;
 public class CommandHandler {
     public PortalPlugin iPortalPlugin;
     public PortalManager iPortalManager;
+    public Config iPortalConfig;
+    public TextFormat iCC;
 
     Map<String, CommandHandlerObject> iCmdHandlerMap;
 
-    public CommandHandler (PortalPlugin mainPlugin, PortalManager portalManager, Config config) {
+    public CommandHandler (PortalPlugin mainPlugin, PortalManager portalManager, Config portalConfig) {
         iPortalPlugin = mainPlugin;
         iPortalManager = portalManager;
+        iPortalConfig = portalConfig;
+
+        iCC = TextFormat.getByChar(iPortalConfig.getString("portals.general.textColor", Defaults.CHAT_COLOR));
 
         iCmdHandlerMap = new HashMap<String, CommandHandlerObject>();
         (new CmdBackup()).populate(iCmdHandlerMap);
