@@ -47,19 +47,11 @@
         </repository>
     </repositories>
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>cn.nukkit</groupId>-->
-            <!--<artifactId>nukkit</artifactId>-->
-            <!--<version>1.0-SNAPSHOT</version>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>cn.nukkit</groupId>
             <artifactId>nukkit</artifactId>
-            <version>EvoTechPE</version>
-            <optional>false</optional>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/nukkit-1.0-SNAPSHOT.jar</systemPath>
+            <version>1.0-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

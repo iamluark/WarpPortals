@@ -11,7 +11,6 @@ import cn.nukkit.event.Listener;
 import cn.nukkit.event.block.BlockBreakEvent;
 import cn.nukkit.event.block.BlockFormEvent;
 import cn.nukkit.event.block.BlockFromToEvent;
-import cn.nukkit.event.block.BlockPhysicsEvent;
 import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.event.player.PlayerMoveEvent;
 import cn.nukkit.event.player.PlayerTeleportEvent;
@@ -149,10 +148,10 @@ public class NukkitEventListener implements Listener {
      * @param e
      */
     @EventHandler
-    public void onBlockPhysicsEvent(BlockPhysicsEvent e) {
+    public void onBlockPhysicsEvent(BlockFormEvent e) {
         //The following check is to prevent physics when we initially change the template gold blocks to portals, which
         //causes only two portal blocks to appear and the rest to vanish immediately:
-        if((e.getBlock().getId() == BlockID.END_PORTAL && e.getChangedType() == Block.get(BlockID.GOLD_BLOCK)) ||
+        if((e.getBlock().getId() == BlockID.END_PORTAL && e.getNewState() == Block.get(BlockID.GOLD_BLOCK)) ||
                 (e.getBlock().getId() == BlockID.END_PORTAL && iPortalManager.isLocationInsidePortal(e.getBlock().getLocation()) != null)) {
             e.setCancelled(true);
         }
