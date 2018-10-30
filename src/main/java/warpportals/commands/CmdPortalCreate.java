@@ -57,7 +57,7 @@ public class CmdPortalCreate extends CommandHandlerObject {
                                  * Get the block type specified as the 3rd
                                  * argument for the portal's material type
                                  */
-                                Block blockType = Block.get(BlockID.GOLD_BLOCK);
+                                Block blockType = Block.get(BlockID.NETHER_PORTAL);
                                 // Test to see if that is a valid material
                                 // type
                                 if (blockType != null) {
